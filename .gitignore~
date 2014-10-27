@@ -1,6 +1,0 @@
-*.jar
-*.iml
-target/*
-*.project
-*.classpath
-*.idea/*
