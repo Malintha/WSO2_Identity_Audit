@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Export-Package: org.wso2.carbon.accesslogpublisher;uses:="javax.servle
+ t,org.apache.catalina.connector,org.apache.log4j,org.apache.commons.c
+ ollections.map,org.apache.catalina,org.apache.catalina.valves";versio
+ n="4.2.0"
+Built-By: malintha
+Tool: Bnd-1.43.0
+Bundle-Name: org.wso2.carbon.accesslogpublisher
+Created-By: Apache Maven Bundle Plugin
+Bundle-Vendor: WSO2 Inc
+Build-Jdk: 1.6.0_45
+Bundle-Version: 4.2.0
+Bnd-LastModified: 1413261702972
+Bundle-ManifestVersion: 2
+Bundle-Description: This bundle contains custom tomcat valve to publis
+ h HTTP Access Logs
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0
+Import-Package: javax.servlet;version="[2.6,3)",org.apache.catalina;ve
+ rsion="[1.7,2)",org.apache.catalina.connector;version="[1.7,2)",org.a
+ pache.catalina.valves;version="[1.7,2)",org.apache.commons.collection
+ s.map;version="[3.2,4)",org.apache.log4j;version="[4.2,5)"
+Bundle-DocURL: http://wso2.com
+Bundle-SymbolicName: org.wso2.carbon.accesslogpublisher
+

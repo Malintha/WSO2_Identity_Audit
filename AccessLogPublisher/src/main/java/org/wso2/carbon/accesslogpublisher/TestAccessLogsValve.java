@@ -48,7 +48,7 @@ public class TestAccessLogsValve extends AccessLogValve {
         hm.put("requestMethod",requestMethodStr);
 
         addToThreadLocal.set(hm);
-        log.info("Set ThreadLocal Hashmap");
+        //log.info("Set ThreadLocal Hashmap");
         next.invoke(request,response);
  }
 }
