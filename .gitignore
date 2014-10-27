@@ -1,6 +1,8 @@
 *.jar
+*.class
 *.iml
-*.target/*
+target/*
 *.project
 *.classpath
-*.idea/*
+Axis2HandlerProject/.idea/*
+Axis2HandlerProject/.settings/*
