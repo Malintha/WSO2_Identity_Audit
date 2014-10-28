@@ -1,0 +1,6 @@
+<%
+print("sample print");
+// var db = new Database("jdbc:mysql://localhost:3306/Audit", "root", "root");
+// var result = db.query("SELECT * FROM AuthAdminLoginDetails");
+// print(result);
+%>
