@@ -1,5 +1,14 @@
 <%
- var db = new Database("jdbc:mysql://localhost:3306/Audit", "root", "root"); 
- var result = db.query("SELECT * FROM AuthAdminLoginDetails");
- print(result);
+var db = new Database("jdbc:mysql://localhost:3306/Audit", "root", "root");
+
+if (request.getParameter("action") == "baseSearch") {
+    var result = db.query("SELECT * FROM AuthAdminLoginDetails");
+    print(result);
+}
+
+if (request.getParameter("action") == "promptSearch") {
+    var result = db.query("Select failCount, UserName From (SELECT count(Response) as failCount, UserName from AuthAdminLoginDetails WHERE Response='false' group by UserName) as Result WHERE failCount = (SELECT max(FailCount) FROM (SELECT count(Response) as failCount, UserName from AuthAdminLoginDetails WHERE Response='false' group by UserName) as Result2)");
+    print(result);
+}
 %>
+

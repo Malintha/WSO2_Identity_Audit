@@ -10,13 +10,27 @@ $(document).ready(function () {
         generatePie(a[0],a[1]);
         console.log('done');
     });
+
+    loadPromptDataFromDB(function(resultArray){
+        console.log("hellooo"+resultArray[0].failCount);
+        $('#promptBox').html("<a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Warning! </strong>"+ resultArray[0].failCount+" login attempts failed for user "+resultArray[0].UserName+" for selected period");
+    });
+
+
     $('.input-daterange').datepicker({
         todayBtn: "linked"
     });
 });
 
+function loadPromptDataFromDB(cb){
+    $.get("service.jag", {action:"promptSearch"}, function (data) {
+        resultArray = JSON.parse(data);
+        cb(resultArray);
+    });
+}
+
 function loadDefaultDatafromDB(cb) {
-    $.get("service.jag", null, function (data) {
+    $.get("service.jag", {action:"baseSearch"}, function (data) {
         resultArray = JSON.parse(data);
         cb(resultArray);
     });
@@ -51,8 +65,8 @@ var searchEventFired = function () {
    var temp = [];
     console.log(r[0]+" , "+r[1]);
 
-    var pd1 = new pieData("True", r[0]);
-    var pd2 = new pieData("False", r[1]);
+    var pd1 = new pieData("Successful", r[0]);
+    var pd2 = new pieData("Unsuccessful", r[1]);
 
     temp.push(pd1);
     temp.push(pd2);
@@ -153,8 +167,8 @@ var dataarr = [];
 
 function generatePie(trueCount,falseCount) {
 
-    var pd1 = new pieData("True", trueCount);
-    var pd2 = new pieData("False", falseCount);
+    var pd1 = new pieData("Successful", trueCount);
+    var pd2 = new pieData("Unsuccessful", falseCount);
     dataarr.push(pd1);
     dataarr.push(pd2);
 
