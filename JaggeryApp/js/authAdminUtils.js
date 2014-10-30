@@ -2,6 +2,11 @@ var tableData = null;
 var isFirstSearch = true;
 //var pieData = null;
 
+function onDateChanges() {
+    console.log('date changes');
+}
+$('#datePicker').daterangepicker(null, function(start, end, label) {
+});
 $(document).ready(function () {
     loadDefaultDatafromDB(function (resultArray) {
         populateTable(resultArray);
@@ -16,10 +21,6 @@ $(document).ready(function () {
         $('#promptBox').html("<a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Warning! </strong>"+ resultArray[0].failCount+" login attempts failed for user "+resultArray[0].UserName+" for selected period");
     });
 
-
-    $('.input-daterange').datepicker({
-        todayBtn: "linked"
-    });
 });
 
 function loadPromptDataFromDB(cb){
@@ -66,7 +67,7 @@ var searchEventFired = function () {
     console.log(r[0]+" , "+r[1]);
 
     var pd1 = new pieData("Successful", r[0]);
-    var pd2 = new pieData("Unsuccessful", r[1]);
+    var pd2 = new pieData("Failed", r[1]);
 
     temp.push(pd1);
     temp.push(pd2);
@@ -168,7 +169,7 @@ var dataarr = [];
 function generatePie(trueCount,falseCount) {
 
     var pd1 = new pieData("Successful", trueCount);
-    var pd2 = new pieData("Unsuccessful", falseCount);
+    var pd2 = new pieData("Failed", falseCount);
     dataarr.push(pd1);
     dataarr.push(pd2);
 

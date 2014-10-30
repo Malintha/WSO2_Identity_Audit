@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <title>Stat Dashboard</title>
 
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+
     <script src="js/metro-dropdown.js" type="text/javascript"></script>
     <script src="js/jquery.widget.min.js" type="text/javascript"></script>
     <script src="js/metro-loader.js" type="text/javascript"></script>
@@ -16,42 +19,36 @@
     <script src="js/d3.min.js" type="text/javascript"></script>
     <script src="js/nv.d3.min.js" type="text/javascript"></script>
 
+
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="fonts/iconFont.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs2.css"/>-->
     <link href="css/metro-bootstrap.css" rel="stylesheet">
     <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
     <link href="fonts/iconFont.min.css" rel="stylesheet">
     <link href="css/datatables.css" rel="stylesheet">
     <link href="css/daterangepicker.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs2.css" />
 
-    <style>
-        .mypiechart {
-            width: 300px;
-            border: 2px;
-        }
-    </style>
 
 </head>
-
 <body style="overflow-y: scroll;">
 <div class="container-fluid">
-
     <!--Navigator bar-->
     <div class="metro row-fluid">
         <nav class="navigation-bar bd-blue">
             <nav class="navigation-bar-content">
                 <img src="images/logo2.png" alt="WSO2 Identity Server">
-
                 <div class="element place-right">
-                    <h1 style="color: #f5f5f5;">Service Statistics Dashboard</h1>
+                    <h2 style="color: #f5f5f5;">Service Statistics Dashboard</h2>
                 </div>
             </nav>
         </nav>
     </div>
     <!--End of navigator bar-->
-
     <!--content body-->
     <div class="row-fluid">
         <!--side bar-->
@@ -70,26 +67,35 @@
             </nav>
         </div>
         <!--end of side bar-->
-
         <!--report content-->
         <div class="span9 metro">
             <h2>Authentication Admin Service</h2>
             <!--<input type="button" value="GetData" id="databtn" onclick=""/>-->
             <br/>
 
-            <!--date range picker-->
-
-            <div id="reportrange" class="pull-left">
-                <i class="icon-calendar"></i>
-                <span>September 1, 2014 - September 20, 2014</span> <b class="caret""></b>
-            </div>
-
-            <br/>
-            <br/>
-
             <!--table and pie-->
             <div class="row-fluid">
-                <!--table-->
+
+                <!--date range picker-->
+                <div class="row-fluid">
+
+                        <div class="row-fluid">
+                            <!--<div class="span2 offset2">-->
+                            <div class="span4">
+                                <i class="icon-calendar"></i>
+                                <input type="search" name="reservation" id="reservation" class="" value="03/18/2013 - 03/23/2013" />
+                            </div>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#reservation').daterangepicker(null, function(start, end, label) {
+                                        console.log(start.toISOString(), end.toISOString(), label);
+                                    });
+                                });
+                            </script>
+                        </div>
+
+                </div>
+                 <!--table-->
                 <div style="float: left;width: 60%;">
                     <div class="dataTables_wrapper">
                         <table id="example" class="display" width="100%">
@@ -105,24 +111,18 @@
                     </div>
                 </div>
                 <!--end of table-->
-
                 <!--pie and prompt-->
                 <div class="span3" style="float: left">
                     <svg id="test1" class="span4"></svg>
                     <br/>
                     <div class="alert alert-warning span4" id="promptBox">
-
                     </div>
                 </div>
                 <!--end of pie and prompt-->
-
-
             </div>
             <!--end of report content-->
         </div>
-
     </div>
-
 </div>
 <!--footer-->
 <div class="metro">
@@ -137,3 +137,4 @@
 </div>
 </body>
 </html>
+
