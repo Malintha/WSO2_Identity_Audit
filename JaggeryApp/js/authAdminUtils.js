@@ -1,14 +1,27 @@
 var tableData = null;
 var isFirstSearch = true;
+
+
 //var pieData = null;
 
-function onDateChanges() {
-    console.log('date changes');
+function onDateChanges(startDate,endDate) {
+    console.log('date changes'+startDate+" , "+endDate+" , "+moment().subtract(1,'days').toISOString());
+    tableData.fnClearTable();
+    if(moment(endDate).isAfter(startDate)){
+        loadDefaultDatafromDB(startDate,endDate,function (resultArray) {
+            tableData.fnAddData(resultArray);
+        });
+        loadPromptDataFromDB(startDate,endDate, function(resultArray){
+            console.log("hellooo"+resultArray[0].failCount);
+            $('#promptBox').html("<a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Warning! </strong>"+ resultArray[0].failCount+" login attempts failed for user "+resultArray[0].UserName+" for selected period");
+        });
+    }
 }
-$('#datePicker').daterangepicker(null, function(start, end, label) {
-});
+
+
 $(document).ready(function () {
-    loadDefaultDatafromDB(function (resultArray) {
+
+    loadDefaultDatafromDB(moment().subtract(1,'days').toISOString(),moment().toISOString(),function (resultArray) {
         populateTable(resultArray);
         var a = getStatsFromTable();
         console.log(a[0]+","+a[1]);
@@ -16,22 +29,22 @@ $(document).ready(function () {
         console.log('done');
     });
 
-    loadPromptDataFromDB(function(resultArray){
+    loadPromptDataFromDB(moment().subtract(1,'days').toISOString(),moment().toISOString(), function(resultArray){
         console.log("hellooo"+resultArray[0].failCount);
         $('#promptBox').html("<a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Warning! </strong>"+ resultArray[0].failCount+" login attempts failed for user "+resultArray[0].UserName+" for selected period");
     });
 
 });
 
-function loadPromptDataFromDB(cb){
-    $.get("service.jag", {action:"promptSearch"}, function (data) {
+function loadPromptDataFromDB(aStart,aEnd, cb){
+    $.get("service.jag", {action:"promptSearch",start:aStart, end:aEnd}, function (data) {
         resultArray = JSON.parse(data);
         cb(resultArray);
     });
 }
 
-function loadDefaultDatafromDB(cb) {
-    $.get("service.jag", {action:"baseSearch"}, function (data) {
+function loadDefaultDatafromDB(aStart, aEnd, cb) {
+    $.get("service.jag", {action:"baseSearch", start:aStart, end:aEnd}, function (data) {
         resultArray = JSON.parse(data);
         cb(resultArray);
     });

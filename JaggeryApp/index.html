@@ -13,7 +13,7 @@
     <script src="js/metro-dropdown.js" type="text/javascript"></script>
     <script src="js/jquery.widget.min.js" type="text/javascript"></script>
     <script src="js/metro-loader.js" type="text/javascript"></script>
-    <script src="js/load-metro.js" type="text/javascript"></script>
+    <!--<script src="js/load-metro.js" type="text/javascript"></script>-->
     <script src="js/authAdminUtils.js" type="text/javascript"></script>
     <script src="js/datatables.min.js" type="text/javascript"></script>
     <script src="js/d3.min.js" type="text/javascript"></script>
@@ -23,6 +23,7 @@
     <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs2.css"/>
     <!--<link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs2.css"/>-->
     <link href="css/metro-bootstrap.css" rel="stylesheet">
     <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
@@ -31,7 +32,6 @@
     <link href="css/daterangepicker.css" rel="stylesheet">
     <link href="css/nv.d3.min.css" rel="stylesheet" type="text/css">
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker-bs2.css" />
 
 
 </head>
@@ -42,6 +42,7 @@
         <nav class="navigation-bar bd-blue">
             <nav class="navigation-bar-content">
                 <img src="images/logo2.png" alt="WSO2 Identity Server">
+
                 <div class="element place-right">
                     <h2 style="color: #f5f5f5;">Service Statistics Dashboard</h2>
                 </div>
@@ -79,23 +80,29 @@
                 <!--date range picker-->
                 <div class="row-fluid">
 
-                        <div class="row-fluid">
-                            <!--<div class="span2 offset2">-->
-                            <div class="span4">
-                                <i class="icon-calendar"></i>
-                                <input type="search" name="reservation" id="reservation" class="" value="03/18/2013 - 03/23/2013" />
-                            </div>
-                            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('#reservation').daterangepicker(null, function(start, end, label) {
-                                        console.log(start.toISOString(), end.toISOString(), label);
-                                    });
-                                });
-                            </script>
+                    <div class="row-fluid">
+
+                        <div id="reportrange2" class="btn"
+                             style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                            <i class="icon-calendar"></i>
+                            <span></span> <b class="caret"></b>
                         </div>
 
+                        <script type="text/javascript">
+
+                            $('#reportrange2 span').html(moment().subtract(1, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+                            $('#reportrange2').daterangepicker({
+                                opens: 'center'
+                            }, function (start, end, label) {
+
+                                onDateChanges(start.toISOString(), end.toISOString());
+                            });
+
+                        </script>
+                    </div>
+
                 </div>
-                 <!--table-->
+                <!--table-->
                 <div style="float: left;width: 60%;">
                     <div class="dataTables_wrapper">
                         <table id="example" class="display" width="100%">
@@ -115,6 +122,7 @@
                 <div class="span3" style="float: left">
                     <svg id="test1" class="span4"></svg>
                     <br/>
+
                     <div class="alert alert-warning span4" id="promptBox">
                     </div>
                 </div>
